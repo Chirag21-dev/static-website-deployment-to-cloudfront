@@ -18,3 +18,11 @@ resource "aws_s3_bucket_public_access_block" "website" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+resource "aws_cloudfront_origin_access_control" "website" {
+  name                              = "${var.bucket_name}-oac"
+  description                       = "Access to private S3 website origin"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
