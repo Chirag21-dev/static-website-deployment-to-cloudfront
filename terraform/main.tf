@@ -102,11 +102,11 @@ resource "aws_s3_bucket_policy" "website" {
 }*/
 
 resource "aws_s3_object" "website_files" {
-  for_each = fileset("${path.module}/webste", "**")
+  for_each = fileset("${path.module}/../webste", "**")
 
   bucket = aws_s3_bucket.website.id
   key    = each.value
-  source = "${path.module}/webste/${each.value}"
+  source = "${path.module}/../webste/${each.value}"
 
-  etag = filemd5("${path.module}/webste/${each.value}")
+  etag = filemd5("${path.module}/../webste/${each.value}")
 }
